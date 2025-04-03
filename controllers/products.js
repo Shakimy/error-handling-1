@@ -5,7 +5,10 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.getPostProduct = (req, res, next) => {
-    const product = new Product(req.body.description)
+    if (String(req.body.title).trim() < 1) {
+        return res.send('Error: Please a provide a title!');
+    }
+    const product = new Product(req.body.title)
     product.save();
     res.redirect('/');
 };
